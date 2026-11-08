@@ -7,9 +7,9 @@
 @media (prefers-color-scheme:dark){:root{--bg:#111316;--card:#1a1d22;--ink:#e8eaed;--mute:#9aa1ac;--line:#2c3038;--acc:#4cc27e;--acc2:#16301f;--sr:#f0b75a;--srbg:#33270f;--fw:#f08bc0;--fwbg:#371a2a;--red:#ef5350;--hd:#22262c}}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
 header{background:var(--acc);color:#fff;padding:18px 20px}header h1{margin:0;font-size:22px}header p{margin:4px 0 0;opacity:.9}
-nav{display:flex;gap:4px;padding:10px 20px 0;max-width:1300px;margin:0 auto}nav button{border:1px solid var(--line);border-bottom:none;background:var(--hd);color:var(--ink);padding:9px 16px;border-radius:8px 8px 0 0;cursor:pointer;font:inherit;font-weight:600}
+nav{display:flex;flex-wrap:wrap;gap:4px;padding:10px 20px 0;max-width:1600px;margin:0 auto}nav button{border:1px solid var(--line);border-bottom:none;background:var(--hd);color:var(--ink);padding:9px 16px;border-radius:8px 8px 0 0;cursor:pointer;font:inherit;font-weight:600}
 nav button.on{background:var(--card);color:var(--acc)}
-main{max-width:1300px;margin:0 auto;padding:0 20px 40px}.card{background:var(--card);border:1px solid var(--line);border-radius:0 10px 10px 10px;padding:16px}
+main{max-width:1600px;margin:0 auto;padding:0 20px 40px}.card{background:var(--card);border:1px solid var(--line);border-radius:0 10px 10px 10px;padding:16px}
 .tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}input,select{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink)}
 label.chk{display:flex;gap:6px;align-items:center;color:var(--mute)}
 .wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
@@ -26,11 +26,23 @@ dialog{border:1px solid var(--line);border-radius:12px;background:var(--card);co
 .rounds{display:flex;gap:12px;overflow-x:auto;padding:8px 0 4px}.rnd{min-width:210px;flex:0 0 auto}.rnd h4{margin:0 0 6px;font-size:12px;text-transform:uppercase;color:var(--mute);letter-spacing:.04em}
 .m{border:1px solid var(--line);border-radius:6px;margin-bottom:6px;overflow:hidden}.m div{display:flex;justify-content:space-between;padding:3px 8px;gap:10px}.m .w{font-weight:700;background:var(--acc2)}.m .l2{color:var(--mute)}
 .p-ch{background:#f5c518;color:#3a2c00}.p-ru{background:#dfe3e8;color:#333}.p-st{background:var(--acc2);color:var(--acc);border:1px solid var(--acc)}
-a{color:var(--acc)}.load{padding:40px;text-align:center;color:var(--mute)}footer{max-width:1300px;margin:0 auto;padding:0 20px 30px;color:var(--mute);font-size:12px}
-nav{overflow-x:auto}nav button{white-space:nowrap}
-@media (max-width:640px){header,nav,main{padding-left:16px;padding-right:16px}}
+a{color:var(--acc)}.load{padding:40px;text-align:center;color:var(--mute)}footer{max-width:1600px;margin:0 auto;padding:0 20px 30px;color:var(--mute);font-size:12px}
+nav button{white-space:nowrap}
+.hw{max-width:1600px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center}
+.find input{width:min(320px,100%);border:none;padding:9px 12px;border-radius:8px;color:#16181d;background:#fff}.find{flex:0 1 320px}
+th,td{padding:5px 6px}table{font-size:13px}th{white-space:normal;vertical-align:bottom;font-size:11px}
+.vb{margin-left:8px;font:inherit;font-size:11px;font-weight:700;padding:1px 8px;border-radius:10px;border:1px solid var(--acc);background:transparent;color:var(--acc);cursor:pointer;vertical-align:1px}
+.vb:hover{background:var(--acc);color:#fff}
+.rounds{flex-wrap:wrap;overflow:visible}.rnd{flex:1 1 190px;min-width:170px}
+dialog{max-height:92vh}.db{overflow-x:hidden}
+@media (max-width:1399px){.h1{display:none}}
+@media (max-width:1149px){.h2{display:none}}
+@media (max-width:899px){.hd{display:none}}
+@media (max-width:819px){.h3{display:none}td.l{white-space:normal}td.name{min-width:120px}}
+@media (max-width:559px){.grid{grid-template-columns:repeat(3,1fr);gap:6px}.stat{padding:6px 8px}.stat b{font-size:17px}.h4{display:none}select{max-width:100%}td.name{min-width:0}th,td{padding:5px 4px}.vb{margin-left:4px;padding:1px 6px}dialog{width:100vw;max-width:100vw;margin:0;border-radius:0}.db,.dh{padding:10px}}
+@media (max-width:640px){header,nav,main,footer{padding-left:16px;padding-right:16px}.tools input{flex:1 1 160px}}
 </style></head><body>
-<header><h1>Chackos Scratch Classic: 2026 Season</h1><p id="sub"></p></header>
+<header><div class="hw"><div><h1>Chackos Scratch Classic: 2026 Season</h1><p id="sub"></p></div><div class="find"><input id="findp" list="plist" placeholder="Find your results: type your name" autocomplete="off" aria-label="Find a bowler"><datalist id="plist"></datalist></div></div></header>
 <nav><button data-t="pts" class="on">Points</button><button data-t="stand">Season standings</button><button data-t="events">Results by date</button><button data-t="cuts">Event summary</button><button data-t="fin">Finals</button></nav>
 <main><div class="card"><div id="loading" class="load">Loading results…</div>
 <section id="pts" hidden>
