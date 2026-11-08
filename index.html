@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chackos Scratch Classic Points</title>
+<meta name="description" content="Chackos Scratch Classic season points, standings, results and finals.">
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#16181d;--mute:#5d6470;--line:#e2e5ea;--acc:#0b7a3e;--acc2:#e7f4ec;--sr:#7a4a00;--srbg:#fdf1dc;--fw:#8a1f5c;--fwbg:#fbe7f1;--red:#c62828;--hd:#eef0f3}
+@media (prefers-color-scheme:dark){:root{--bg:#111316;--card:#1a1d22;--ink:#e8eaed;--mute:#9aa1ac;--line:#2c3038;--acc:#4cc27e;--acc2:#16301f;--sr:#f0b75a;--srbg:#33270f;--fw:#f08bc0;--fwbg:#371a2a;--red:#ef5350;--hd:#22262c}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{background:var(--acc);color:#fff;padding:18px 20px}header h1{margin:0;font-size:22px}header p{margin:4px 0 0;opacity:.9}
+nav{display:flex;gap:4px;padding:10px 20px 0;max-width:1300px;margin:0 auto}nav button{border:1px solid var(--line);border-bottom:none;background:var(--hd);color:var(--ink);padding:9px 16px;border-radius:8px 8px 0 0;cursor:pointer;font:inherit;font-weight:600}
+nav button.on{background:var(--card);color:var(--acc)}
+main{max-width:1300px;margin:0 auto;padding:0 20px 40px}.card{background:var(--card);border:1px solid var(--line);border-radius:0 10px 10px 10px;padding:16px}
+.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}input,select{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink)}
+label.chk{display:flex;gap:6px;align-items:center;color:var(--mute)}
+.wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th{background:var(--hd);position:sticky;top:0;cursor:pointer;user-select:none;font-size:12px;text-transform:uppercase;letter-spacing:.03em;color:var(--mute)}th.l,td.l{text-align:left}
+th.sorted{color:var(--acc)}tbody tr:hover{background:var(--acc2)}td.name{font-weight:600;cursor:pointer;color:var(--ink)}td.name:hover{color:var(--acc);text-decoration:underline}
+tr.cutline td{border-bottom:3px solid var(--red)}tr.in td:first-child{box-shadow:inset 4px 0 var(--acc)}
+.pill{display:inline-block;padding:1px 7px;border-radius:10px;font-size:11px;font-weight:700}.p-cut{background:var(--acc2);color:var(--acc)}.p-sr{background:var(--srbg);color:var(--sr)}.p-fw{background:var(--fwbg);color:var(--fw)}.p-ro{background:var(--hd);color:var(--mute)}
+.tag{color:var(--mute);font-weight:400;font-size:12px}.big{font-weight:700}.hi{color:var(--acc);font-weight:700}.mute{color:var(--mute)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:10px 0 16px}.stat{border:1px solid var(--line);border-radius:8px;padding:10px 12px}.stat b{display:block;font-size:22px}.stat span{color:var(--mute);font-size:12px}
+.note{background:var(--hd);border-radius:8px;padding:10px 12px;color:var(--mute);margin:10px 0;font-size:13px}.flag{color:var(--red);cursor:help}
+dialog{border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);max-width:1000px;width:95vw;padding:0}dialog::backdrop{background:#0008}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line)}.dh h2{margin:0;font-size:18px}.db{padding:14px 16px}.x{border:none;background:none;color:var(--ink);font-size:22px;cursor:pointer}
+.fin{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:0 0 14px}.fin h3{margin:0 0 4px;font-size:16px}.champ{font-size:18px;font-weight:800;color:var(--acc)}
+.rounds{display:flex;gap:12px;overflow-x:auto;padding:8px 0 4px}.rnd{min-width:210px;flex:0 0 auto}.rnd h4{margin:0 0 6px;font-size:12px;text-transform:uppercase;color:var(--mute);letter-spacing:.04em}
+.m{border:1px solid var(--line);border-radius:6px;margin-bottom:6px;overflow:hidden}.m div{display:flex;justify-content:space-between;padding:3px 8px;gap:10px}.m .w{font-weight:700;background:var(--acc2)}.m .l2{color:var(--mute)}
+.p-ch{background:#f5c518;color:#3a2c00}.p-ru{background:#dfe3e8;color:#333}.p-st{background:var(--acc2);color:var(--acc);border:1px solid var(--acc)}
+a{color:var(--acc)}.load{padding:40px;text-align:center;color:var(--mute)}footer{max-width:1300px;margin:0 auto;padding:0 20px 30px;color:var(--mute);font-size:12px}
+nav{overflow-x:auto}nav button{white-space:nowrap}
+@media (max-width:640px){header,nav,main{padding-left:16px;padding-right:16px}}
+</style></head><body>
+<header><h1>Chackos Scratch Classic: 2026 Season</h1><p id="sub"></p></header>
+<nav><button data-t="pts" class="on">Points</button><button data-t="stand">Season standings</button><button data-t="events">Results by date</button><button data-t="cuts">Event summary</button><button data-t="fin">Finals</button></nav>
+<main><div class="card"><div id="loading" class="load">Loading results…</div>
+<section id="pts" hidden>
+ <div class="tools"><input id="q3" placeholder="Search bowler…" size="22"><span class="mute" id="scoring"></span></div>
+ <div class="wrap"><table id="pt"><thead></thead><tbody></tbody></table></div>
+ <div class="note"><b>How points work:</b> each bowler gets PBA points for their final finish at every event, plus the made-cut bonus and the top-qualifier bonus. Final finish comes from the finals first (champion, runner-up, then by the round they went out in, with ties in a round broken by qualifying position or that round's score), then the 6-game advancers totals, then everyone else by qualifying total. Bowlers tied in qualifying share the same finish and points. Each cell shows points with the finish in grey.</div>
+</section>
+<section id="stand" hidden>
+ <div class="tools"><input id="q" placeholder="Search bowler…" size="24"><label class="chk"><input type="checkbox" id="madeOnly"> Only bowlers who made a cut</label><label class="chk"><input type="checkbox" id="incSpots" checked> Count Senior/Female spots as making the cut</label></div>
+ <div class="wrap"><table id="st"><thead></thead><tbody></tbody></table></div>
+ <div class="note">Click a bowler's name for every game they bowled this season. <b>Cuts</b> = finished above the red line on the sheet (rolloff losers excluded). <b>Sr/W spots</b> = advanced as the high Senior or high Female below the line. <b>Finals</b> = made the match play bracket, stepladder, or elimination finals. <b>Match W-L</b> counts match play and stepladder matches. <b>Finals avg</b> uses every known finals game. Qualifying averages include the 6-game advancers rounds and leave out "1" placeholder games (no-shows/withdrawals). Senior/Female spots only advanced on advancers and elimination dates; on match play dates the bracket was the top 17 only.</div>
+</section>
+<section id="events" hidden>
+ <div class="tools"><select id="ev"></select><input id="q2" placeholder="Search bowler…" size="24"></div>
+ <div id="evhead"></div>
+ <div class="wrap"><table id="et"><thead></thead><tbody></tbody></table></div>
+</section>
+<section id="cuts" hidden>
+ <div class="wrap"><table id="ct"><thead></thead><tbody></tbody></table></div>
+ <div class="note">Cut score is the total of the last bowler above the line. +/- is versus a 200 average.</div>
+</section>
+<section id="fin" hidden><div id="finlist"></div></section>
+</div></main>
+<footer id="foot"></footer>
+<dialog id="dlg"><div class="dh"><h2 id="dt"></h2><button class="x" onclick="dlg.close()">×</button></div><div class="db" id="dbody"></div></dialog>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body></html>
