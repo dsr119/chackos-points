@@ -12,6 +12,7 @@ function parseCSV(text){const rows=[];let row=[],f='',q=false;
   const hdr=(rows.shift()||[]).map(h=>h.trim());
   return rows.filter(r=>r.some(x=>x.trim()!=='')).map(r=>Object.fromEntries(hdr.map((h,i)=>[h,(r[i]??'').trim()])));}
 function isoDate(s){s=(s||'').trim();let m;
+  if(/^\d{5}$/.test(s))return new Date(Date.UTC(1899,11,30)+(+s)*864e5).toISOString().slice(0,10);
   if((m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/)))return `${m[1]}-${m[2].padStart(2,'0')}-${m[3].padStart(2,'0')}`;
   if((m=s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})/))){const y=m[3].length===2?'20'+m[3]:m[3];return `${y}-${m[1].padStart(2,'0')}-${m[2].padStart(2,'0')}`}
   const d=new Date(s);return isNaN(d)?s:d.toISOString().slice(0,10);}
