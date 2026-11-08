@@ -102,7 +102,7 @@ function buildSettings(rows){const s=rows[0]||{},g=(k,d)=>{const v=num(s[k]);ret
     if(!EVENTS.length&&src==='sheet'){console.warn('Sheet had no usable events, using bundled data');window.CHACKOS_CONFIG={...window.CHACKOS_CONFIG,sheetId:''};({src,t}=await loadTables());EVENTS=buildEvents(t)}
     if(!EVENTS.length)throw new Error('No events found in the data');
     render(EVENTS,buildSettings(t.settings));
-    document.getElementById('foot').textContent=(src==='sheet'?'Live results from the Chackos results sheet':'Showing saved results (the live sheet could not be reached)')+` · loaded ${new Date().toLocaleString()}`;
+    if(src!=='sheet')document.getElementById('foot').textContent='Showing saved results. The results sheet could not be reached.';
   }catch(err){console.error(err);const l=document.getElementById('loading');if(l)l.textContent='Could not load results: '+err.message;}
 })();
 
@@ -140,7 +140,6 @@ function finish(e,n){const f=e.finals,r=e.by[n];if(!r)return'';
  if(e.step&&r.t6)return'<span class="mute">Advancers round</span>';
  return '';}
 const finishRank=(e,n)=>{const f=e.finals;if(n===f.champion)return 1;if(n===f.runnerUp)return 2;return 99};
-$('#sub').textContent=`${EVENTS.length} events · ${fmtDate(EVENTS[0].date)} to ${fmtDate(EVENTS.at(-1).date)} · ${new Set(EVENTS.flatMap(e=>e.rows.map(r=>r.name))).size} bowlers`;
 // players
 const P={};
 EVENTS.forEach((e,ei)=>e.rows.forEach(r=>{const p=P[r.name]??={name:r.name,tags:new Set(),res:[]};if(r.tags)r.tags.replace(/[^A-Z]/g,'').split('').forEach(t=>p.tags.add(t));p.res.push({ei,...r});}));
@@ -169,11 +168,11 @@ function finalsHtml(e){const f=e.finals;let h=`<div class="fin"><h3>${f.format}<
  if(e.step)h+=`<div class="mute" style="margin-bottom:6px">Stepladder seeds after 6 games: ${e.step.map((n,i)=>`#${i+1} ${title(n)} (${e.by[n].t6})`).join(' · ')}</div>`;
  if(f.rounds?.length)h+='<div class="rounds">'+f.rounds.map(rd=>`<div class="rnd"><h4>${rd.name}</h4>${rd.m.map(([w,ws,l,ls])=>`<div class="m"><div class="w"><span>${seed(e,w)}${nm(w)}</span><span>${ws??'?'}</span></div><div class="l2"><span>${seed(e,l)}${nm(l)}</span><span>${ls??'?'}</span></div></div>`).join('')}</div>`).join('')+'</div>';
  if(f.elim)h+='<div class="rounds">'+f.elim.map(rd=>`<div class="rnd"><h4>${rd.name}</h4><div class="m">${rd.r.map(([n,s,a,p])=>`<div class="${a?'w':'l2'}"><span>${nm(n)}</span><span>${s}${p?` <span class="pill p-ro">$${p}</span>`:''}</span></div>`).join('')}</div></div>`).join('')+'</div>';
- if(f.format.includes('stepladder')&&!f.rounds.length)h+='<div class="mute">Stepladder scores were not available.</div>';
+ if(f.format.includes('stepladder')&&!f.rounds.length)h+='<div class="mute">Scores not available.</div>';
  return h+'</div>';}
 function drawEvent(){const e=EVENTS[$('#ev').value],q=$('#q2').value.toUpperCase().trim();const c=e.cutRow;
  const adv=e.rows.filter(r=>r.status&&r.status!=='rolloff').length,six=!!e.step,ng=six?6:e.n;
- $('#evhead').innerHTML=finalsHtml(e)+`<div class="grid"><div class="stat"><b>${e.field}</b><span>Bowlers</span></div><div class="stat"><b>${e.n}</b><span>Qualifying games</span></div><div class="stat"><b>${e.cash-(e.out?.length||0)}</b><span>${e.n===7?'Cashed':'Made scratch cut'}</span></div><div class="stat"><b>${c.total} <small class="mute">(${pm(c.total,e.n)})</small></b><span>Cut score</span></div><div class="stat"><b>${e.rows[0].total} <small class="mute">(${pm(e.rows[0].total,e.n)})</small></b><span>Top qualifier: ${title(e.rows[0].name)}</span></div><div class="stat"><b>${adv}</b><span>Total advancing</span></div></div><div class="note"><b>Notes on the sheet:</b> ${e.cutlabel||'Last Cash +154'}</div>`;
+ $('#evhead').innerHTML=finalsHtml(e)+`<div class="grid"><div class="stat"><b>${e.field}</b><span>Bowlers</span></div><div class="stat"><b>${e.n}</b><span>Qualifying games</span></div><div class="stat"><b>${e.cash-(e.out?.length||0)}</b><span>${e.n===7?'Cashed':'Made scratch cut'}</span></div><div class="stat"><b>${c.total} <small class="mute">(${pm(c.total,e.n)})</small></b><span>Cut score</span></div><div class="stat"><b>${e.rows[0].total} <small class="mute">(${pm(e.rows[0].total,e.n)})</small></b><span>Top qualifier: ${title(e.rows[0].name)}</span></div><div class="stat"><b>${adv}</b><span>Total advancing</span></div></div>${e.cutlabel?`<div class="note">${e.cutlabel}</div>`:''}`;
  $('#et thead').innerHTML=`<tr><th>Place</th><th class="l">Bowler</th>${Array.from({length:ng},(_,i)=>`<th>G${i+1}</th>`).join('')}<th>${six?'4-game':'Total'}</th><th>+/-</th>${six?'<th>6-game</th>':''}<th class="l">Status</th><th class="l">Finish</th></tr>`;
  const hi=Math.max(...e.rows.flatMap(r=>r.games));
  $('#et tbody').innerHTML=e.rows.map((r,i)=>(!q||r.name.includes(q))?`<tr class="${i===e.cash-1&&!q?'cutline':''} ${r.status&&r.status!=='rolloff'?'in':''}"><td>${r.place}</td><td class="l name" data-p="${r.name}">${title(r.name)}${tagTxt(r.tags)}${r.flag?` <span class="flag" title="${r.flag}">⚠</span>`:''}</td>${Array.from({length:ng},(_,k)=>{const g=r.games[k];return`<td class="${g===hi?'hi':''}${g===1?' mute':''}">${g??''}</td>`}).join('')}<td class="big">${r.total}</td><td class="mute">${pm(r.total,r.qn)}</td>${six?`<td class="big">${r.t6??''}</td>`:''}<td class="l">${statusPill[r.status]||''}</td><td class="l">${finish(e,r.name)}</td></tr>`:'').join('');fit('#et',FIT.et);addView('#et');}
@@ -198,7 +197,7 @@ const PBA=[2500,1500,1150,950,850,775,745,715,685,655,625,595,565,535,505,475,44
 function finPts(f,low){if(f<=64)return PBA[f-1];if(f<=96)return 45;if(f<=105)return 40;return low;}
 function evPts(r,cfg){const fp=finPts(r.fin,cfg.low),cut=(r.status==='cut'||(cfg.spots&&(r.status==='sr'||r.status==='fw')))?cfg.cut:0,lead=r.place===1?cfg.lead:0;return{fp,cut,lead,tot:fp+cut+lead};}
 const cfgNow=()=>SET;
-$('#scoring').textContent=`Made cut +${SET.cut} · Top qualifier +${SET.lead} · 106th and lower ${SET.low} pts · Senior/Female spots ${SET.spots?'get':'do not get'} the cut bonus`;
+$('#scoring').textContent=`Made cut +${SET.cut} · Top qualifier +${SET.lead}`;
 function drawPts(){const cfg=cfgNow(),q=$('#q3').value.toUpperCase().trim();
  const list=players.map(p=>{let fp=0,cut=0,lead=0;const per={};p.res.forEach(r=>{const x=evPts(r,cfg);fp+=x.fp;cut+=x.cut;lead+=x.lead;per[r.ei]={...x,fin:r.fin}});return{p,fp,cut,lead,tot:fp+cut+lead,per}}).sort((a,b)=>b.tot-a.tot||b.p.titles-a.p.titles);
  let rk=0,prev=null;list.forEach((x,i)=>{if(x.tot!==prev){rk=i+1;prev=x.tot}x.rk=rk});

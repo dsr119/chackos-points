@@ -42,18 +42,16 @@ dialog{max-height:92vh}.db{overflow-x:hidden}
 @media (max-width:559px){.grid{grid-template-columns:repeat(3,1fr);gap:6px}.stat{padding:6px 8px}.stat b{font-size:17px}.h4{display:none}select{max-width:100%}td.name{min-width:0}th,td{padding:5px 4px}.vb{margin-left:4px;padding:1px 6px}dialog{width:100vw;max-width:100vw;margin:0;border-radius:0}.db,.dh{padding:10px}}
 @media (max-width:640px){header,nav,main,footer{padding-left:16px;padding-right:16px}.tools input{flex:1 1 160px}}
 </style></head><body>
-<header><div class="hw"><div><h1>Chackos Scratch Classic: 2026 Season</h1><p id="sub"></p></div><div class="find"><input id="findp" list="plist" placeholder="Find your results: type your name" autocomplete="off" aria-label="Find a bowler"><datalist id="plist"></datalist></div></div></header>
+<header><div class="hw"><div><h1>Chackos Scratch Classic 2026</h1></div><div class="find"><input id="findp" list="plist" placeholder="Find a bowler" autocomplete="off" aria-label="Find a bowler"><datalist id="plist"></datalist></div></div></header>
 <nav><button data-t="pts" class="on">Points</button><button data-t="stand">Season standings</button><button data-t="events">Results by date</button><button data-t="cuts">Event summary</button><button data-t="fin">Finals</button></nav>
 <main><div class="card"><div id="loading" class="load">Loading results…</div>
 <section id="pts" hidden>
  <div class="tools"><input id="q3" placeholder="Search bowler…" size="22"><span class="mute" id="scoring"></span></div>
  <div class="wrap"><table id="pt"><thead></thead><tbody></tbody></table></div>
- <div class="note"><b>How points work:</b> each bowler gets PBA points for their final finish at every event, plus the made-cut bonus and the top-qualifier bonus. Final finish comes from the finals first (champion, runner-up, then by the round they went out in, with ties in a round broken by qualifying position or that round's score), then the 6-game advancers totals, then everyone else by qualifying total. Bowlers tied in qualifying share the same finish and points. Each cell shows points with the finish in grey.</div>
 </section>
 <section id="stand" hidden>
  <div class="tools"><input id="q" placeholder="Search bowler…" size="24"><label class="chk"><input type="checkbox" id="madeOnly"> Only bowlers who made a cut</label><label class="chk"><input type="checkbox" id="incSpots" checked> Count Senior/Female spots as making the cut</label></div>
  <div class="wrap"><table id="st"><thead></thead><tbody></tbody></table></div>
- <div class="note">Click a bowler's name for every game they bowled this season. <b>Cuts</b> = finished above the red line on the sheet (rolloff losers excluded). <b>Sr/W spots</b> = advanced as the high Senior or high Female below the line. <b>Finals</b> = made the match play bracket, stepladder, or elimination finals. <b>Match W-L</b> counts match play and stepladder matches. <b>Finals avg</b> uses every known finals game. Qualifying averages include the 6-game advancers rounds and leave out "1" placeholder games (no-shows/withdrawals). Senior/Female spots only advanced on advancers and elimination dates; on match play dates the bracket was the top 17 only.</div>
 </section>
 <section id="events" hidden>
  <div class="tools"><select id="ev"></select><input id="q2" placeholder="Search bowler…" size="24"></div>
@@ -62,7 +60,6 @@ dialog{max-height:92vh}.db{overflow-x:hidden}
 </section>
 <section id="cuts" hidden>
  <div class="wrap"><table id="ct"><thead></thead><tbody></tbody></table></div>
- <div class="note">Cut score is the total of the last bowler above the line. +/- is versus a 200 average.</div>
 </section>
 <section id="fin" hidden><div id="finlist"></div></section>
 </div></main>
