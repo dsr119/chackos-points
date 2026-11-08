@@ -96,8 +96,9 @@ function buildSettings(rows){const s=rows[0]||{},g=(k,d)=>{const v=num(s[k]);ret
 
 (async()=>{
   try{
-    const {src,t}=await loadTables();
-    const EVENTS=buildEvents(t);
+    let {src,t}=await loadTables(),EVENTS=[];
+    try{EVENTS=buildEvents(t)}catch(err){console.warn(err)}
+    if(!EVENTS.length&&src==='sheet'){console.warn('Sheet had no usable events, using bundled data');window.CHACKOS_CONFIG={...window.CHACKOS_CONFIG,sheetId:''};({src,t}=await loadTables());EVENTS=buildEvents(t)}
     if(!EVENTS.length)throw new Error('No events found in the data');
     render(EVENTS,buildSettings(t.settings));
     document.getElementById('foot').textContent=(src==='sheet'?'Live results from the Chackos results sheet':'Showing saved results (the live sheet could not be reached)')+` · loaded ${new Date().toLocaleString()}`;
